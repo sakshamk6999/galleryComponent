@@ -6,7 +6,7 @@ class TempComponent extends React.Component{
         super(props);
         this.state = {
             listOfPromises: [Promise.resolve(1), new Promise((resolve, reject) => {
-                setTimeout(resolve, 5000, 'one');
+                setTimeout(resolve, 10000, 'one');
             }), Promise.resolve(3)]
         };
     }

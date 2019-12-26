@@ -6,7 +6,8 @@ class Loader extends React.Component{
         this.state = {
             cursor: 0,
             loadedItems: [],
-            flag: 0
+            flag: 0,
+            loaded: false
         };
         this.handleNext = this.handleNext.bind(this);
         this.handleFetch = this.handleFetch.bind(this);
@@ -14,13 +15,19 @@ class Loader extends React.Component{
 
     handleFetch(){
         const promiseList = this.props.render();
+        this.setState({
+            loaded: false
+        });
+        console.log(this.state.loaded);
         Promise.all(promiseList.map(p => 
             p.catch(() => this.props.err))).then((values) =>
             {
                 this.setState((state) => ({
                     loadedItems: state.loadedItems.concat(values),
-                    flag: 1
+                    flag: 1,
+                    loaded: true
                 }));
+                console.log(this.state.loaded);
             }).catch((err)=>{
                 console.log("unable to load");
             })
